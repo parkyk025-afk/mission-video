@@ -7,17 +7,20 @@
 <meta property="og:title" content="아이슬란드에서 온 소식 · 선교영상 26-4기">
 <meta property="og:description" content="재림교회 자원봉사자 칼리가 아이슬란드에서 섬기는 이야기 (2분 57초)">
 <meta property="og:image" content="https://parkyk025-afk.github.io/mission-video/iceland.jpg">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
   /* Layout: one-screen field dispatch over the Icelandic landscape.
      Masthead / [story column | film] / footer line, all sized to the viewport height on monitors.
      Phones and short windows fall back to normal scrolling. Single dark look over the photo. */
+  /* Display face shipped with the page (subset to the headline glyphs) so it renders even where Google Fonts is blocked */
+  @font-face{font-family:"Gowun Batang Page";src:url("gowun-400.woff2") format("woff2");font-weight:400;font-display:block}
+  @font-face{font-family:"Gowun Batang Page";src:url("gowun-700.woff2") format("woff2");font-weight:700;font-display:block}
   :root{
     color-scheme:dark;
     --ink:#f5f8fa; --muted:#c6d0d8; --faint:#93a2ae;
     --glass:rgba(10,18,26,.58); --line:rgba(255,255,255,.18);
     --moss:#a9c47f; --sun:#f0c25a; --night:#0a1017;
-    --display:"Gowun Batang","Batang",serif;
+    --display:"Gowun Batang Page","Gowun Batang","Batang",serif;
     --body:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
     --mono:"IBM Plex Mono",Consolas,monospace;
   }
@@ -49,10 +52,10 @@
 
   /* Main: story | film */
   .main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3vw;align-items:center;min-height:0}
-  .story{display:flex;flex-direction:column;gap:2.2vh;min-width:0;max-width:600px}
+  .story{display:flex;flex-direction:column;gap:2.2vh;min-width:0;max-width:640px;container-type:inline-size}
   .dateline{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--sun);margin:0}
-  h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,6vh,68px);line-height:1.1;margin:-1vh 0 0;
-    text-wrap:balance;text-shadow:0 4px 24px rgba(0,0,0,.45)}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(24px,min(6vh,10.8cqi),66px);line-height:1.1;margin:-1vh 0 0;
+    white-space:nowrap;text-shadow:0 4px 24px rgba(0,0,0,.45)}
   .lead{font-size:clamp(14px,1.9vh,18px);margin:0;text-shadow:0 2px 10px rgba(0,0,0,.55)}
 
   .notes{list-style:none;margin:0;padding:0;display:grid;gap:1.2vh}
@@ -66,7 +69,7 @@
   .note p{margin:0;color:var(--muted);font-size:clamp(12.5px,1.55vh,14.5px);line-height:1.5}
 
   blockquote{margin:0;padding-left:16px;border-left:3px solid var(--sun)}
-  blockquote p{font-family:var(--display);font-size:clamp(20px,3.2vh,32px);line-height:1.3;margin:0 0 2px}
+  blockquote p{font-family:var(--display);font-size:clamp(18px,min(3.2vh,6.6cqi),32px);line-height:1.3;margin:0 0 2px}
   blockquote cite{font-style:normal;color:var(--muted);font-size:13.5px}
 
   /* Film: width follows the available height so the whole frame always fits */
@@ -117,7 +120,7 @@
   <main class="main">
     <section class="story">
       <p class="dateline">REYKJAVÍK, ICELAND · 64°08′N 21°56′W</p>
-      <h1>아이슬란드에서 온 소식</h1>
+      <h1>양들과 씨름하는 봉사</h1>
       <p class="lead">고향을 떠나 아이슬란드로 온 재림교회 자원봉사자 칼리. 하나님께서 열어 주신 문으로 들어가, 그곳 사람들과 함께 살며 섬기는 이야기입니다.</p>
 
       <ul class="notes" aria-label="현장에서 전하는 세 장면">
