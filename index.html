@@ -9,174 +9,155 @@
 <meta property="og:image" content="https://parkyk025-afk.github.io/mission-video/iceland.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-  /* Layout: a field dispatch laid over the Icelandic landscape.
-     Masthead strip → dateline + headline over the sky → film in a glass frame →
-     three "field notes" postcards → pull quote → how to serve. Single dark look over the photo. */
+  /* Layout: one-screen field dispatch over the Icelandic landscape.
+     Masthead / [story column | film] / footer line, all sized to the viewport height on monitors.
+     Phones and short windows fall back to normal scrolling. Single dark look over the photo. */
   :root{
     color-scheme:dark;
     --ink:#f5f8fa; --muted:#c6d0d8; --faint:#93a2ae;
     --glass:rgba(10,18,26,.58); --line:rgba(255,255,255,.18);
-    --moss:#a9c47f; --sun:#f0c25a; --sun-ink:#1d1606; --night:#0a1017;
+    --moss:#a9c47f; --sun:#f0c25a; --night:#0a1017;
     --display:"Gowun Batang","Batang",serif;
     --body:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
     --mono:"IBM Plex Mono",Consolas,monospace;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
-  body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;background:var(--night);word-break:keep-all;overflow-wrap:anywhere}
+  body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;background:var(--night);
+    word-break:keep-all;overflow-wrap:anywhere}
   .bg{position:fixed;inset:0;z-index:0;
     background:
-      linear-gradient(90deg, rgba(8,14,20,.66) 0%, rgba(8,14,20,.28) 60%, rgba(8,14,20,.12) 100%),
-      linear-gradient(180deg, rgba(8,14,20,.50) 0%, rgba(8,14,20,.30) 30%, rgba(8,14,20,.78) 65%, rgba(8,14,20,.94) 100%),
+      linear-gradient(90deg, rgba(8,14,20,.80) 0%, rgba(8,14,20,.50) 40%, rgba(8,14,20,.25) 100%),
+      linear-gradient(180deg, rgba(8,14,20,.45) 0%, rgba(8,14,20,.25) 40%, rgba(8,14,20,.75) 100%),
       url("iceland.jpg") center 35% / cover no-repeat;
     animation:drift 45s ease-in-out infinite alternate}
   @keyframes drift{from{transform:scale(1)}to{transform:scale(1.06)}}
-  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-block:20px 48px;
-    padding-left:max(16px, env(safe-area-inset-left, 0px));
-    padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+  .page{position:relative;z-index:1;max-width:1720px;margin:0 auto;
+    display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:2.2vh;
+    padding-block:2.4vh;
+    padding-left:max(16px, 3vw, env(safe-area-inset-left, 0px));
+    padding-right:max(16px, 3vw, env(safe-area-inset-right, 0px))}
 
   /* Masthead */
-  .mast{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;
-    padding-bottom:14px;border-bottom:1px solid var(--line)}
-  .mast img{display:block;width:min(240px,60vw);height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
-  .issue{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted);letter-spacing:.04em}
-  .issue b{font-family:var(--display);font-size:18px;color:var(--ink);letter-spacing:0}
+  .mast{display:flex;align-items:center;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;
+    padding-bottom:1.4vh;border-bottom:1px solid var(--line)}
+  .mast img{display:block;width:clamp(170px,22vh,260px);height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+  .issue{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+  .issue b{font-family:var(--display);font-size:18px;color:var(--ink)}
   .issue span{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
 
-  /* Hero */
-  .hero{padding-block:clamp(48px,12vh,120px) 36px;max-width:640px}
-  .dateline{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;color:var(--sun);margin:0 0 14px}
-  h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,8vw,76px);line-height:1.08;margin:0 0 16px;
+  /* Main: story | film */
+  .main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3vw;align-items:center;min-height:0}
+  .story{display:flex;flex-direction:column;gap:2.2vh;min-width:0;max-width:600px}
+  .dateline{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--sun);margin:0}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,6vh,68px);line-height:1.1;margin:-1vh 0 0;
     text-wrap:balance;text-shadow:0 4px 24px rgba(0,0,0,.45)}
-  .lead{font-size:clamp(16px,2.2vw,19px);margin:0 0 26px;text-shadow:0 2px 10px rgba(0,0,0,.55)}
-  .cta{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:700;font-size:17px;cursor:pointer;
-    border:0;border-radius:999px;padding:12px 26px;background:var(--sun);color:var(--sun-ink);
-    box-shadow:0 10px 30px rgba(240,194,90,.35)}
-  .cta::before{content:"";border-style:solid;border-width:7px 0 7px 11px;border-color:transparent transparent transparent currentColor}
-  .cta:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .lead{font-size:clamp(14px,1.9vh,18px);margin:0;text-shadow:0 2px 10px rgba(0,0,0,.55)}
 
-  /* Film */
-  .panel{background:var(--glass);border:1px solid var(--line);border-radius:20px;
+  .notes{list-style:none;margin:0;padding:0;display:grid;gap:1.2vh}
+  .note{display:grid;grid-template-columns:clamp(84px,13vh,140px) minmax(0,1fr);gap:14px;align-items:center;
+    padding:1vh;border-radius:14px;background:var(--glass);border:1px solid var(--line);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .note img{display:block;width:100%;max-width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:9px}
+  .note div{min-width:0}
+  .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--moss)}
+  .note h3{font-family:var(--display);font-size:clamp(15px,2vh,19px);margin:0 0 2px;line-height:1.3}
+  .note p{margin:0;color:var(--muted);font-size:clamp(12.5px,1.55vh,14.5px);line-height:1.5}
+
+  blockquote{margin:0;padding-left:16px;border-left:3px solid var(--sun)}
+  blockquote p{font-family:var(--display);font-size:clamp(20px,3.2vh,32px);line-height:1.3;margin:0 0 2px}
+  blockquote cite{font-style:normal;color:var(--muted);font-size:13.5px}
+
+  /* Film: width follows the available height so the whole frame always fits */
+  .film{width:min(58vw, calc((100vh - 230px) * 888 / 528));padding:10px;border-radius:18px;
+    background:var(--glass);border:1px solid var(--line);
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 60px rgba(0,0,0,.45)}
-  .film{padding:12px;scroll-margin-top:20px}
-  video{display:block;width:100%;max-width:100%;aspect-ratio:888/528;background:#000;border-radius:12px}
-  .bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:12px 6px 4px}
+  video{display:block;width:100%;max-width:100%;aspect-ratio:888/528;background:#000;border-radius:10px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:9px 4px 2px}
   .meta{display:flex;gap:8px;flex-wrap:wrap;margin-right:auto}
-  .chip{font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);
+  .chip{font-size:12.5px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted);
     font-variant-numeric:tabular-nums}
-  .bar label{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:14px;cursor:pointer}
-  button.fs{font:inherit;font-size:14px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--ink);
-    padding:7px 16px;border-radius:999px;cursor:pointer}
+  .bar label{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:13.5px;cursor:pointer}
+  button.fs{font:inherit;font-size:13.5px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--ink);
+    padding:6px 15px;border-radius:999px;cursor:pointer}
   button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 
-  /* Field notes */
-  .section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:56px 0 18px}
-  h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);margin:0}
-  .section-head p{margin:0;color:var(--muted);font-size:14px}
-  .notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-  @media (max-width:860px){.notes{grid-template-columns:minmax(0,1fr)}}
-  .note{overflow:hidden;display:flex;flex-direction:column}
-  .note img{display:block;width:100%;max-width:100%;aspect-ratio:3/2;object-fit:cover}
-  .note .txt{padding:16px 18px 20px;display:grid;gap:6px}
-  .tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--moss)}
-  .note h3{font-family:var(--display);font-size:21px;margin:0;line-height:1.35}
-  .note p{margin:0;color:var(--muted);font-size:15px}
+  /* Footer line */
+  footer{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:baseline;padding-top:1.2vh;border-top:1px solid var(--line);
+    font-size:13px;color:var(--muted)}
+  footer strong{color:var(--ink);font-weight:600}
+  footer a{color:var(--sun);font-weight:600;text-underline-offset:3px}
+  footer .credit{margin-left:auto;color:var(--faint);font-size:12px}
 
-  /* Quote */
-  blockquote{margin:56px 0 0;padding:34px clamp(20px,5vw,48px);text-align:left}
-  blockquote p{font-family:var(--display);font-size:clamp(26px,4.6vw,40px);line-height:1.3;margin:0 0 12px}
-  blockquote p::before{content:"“";color:var(--sun);margin-right:4px}
-  blockquote p::after{content:"”";color:var(--sun);margin-left:2px}
-  blockquote cite{font-style:normal;color:var(--muted);font-size:15px}
-
-  /* Serve */
-  .serve{margin-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
-  @media (max-width:760px){.serve{grid-template-columns:minmax(0,1fr)}}
-  .serve .panel{padding:22px 24px}
-  .serve h3{font-family:var(--display);font-size:22px;margin:0 0 8px}
-  .serve p{margin:0;color:var(--muted)}
-  .serve a{color:var(--sun);font-weight:600;text-underline-offset:3px}
-
-  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);
-    display:flex;flex-wrap:wrap;gap:6px 18px}
-  @media (prefers-reduced-motion: reduce){ .bg{animation:none} .cta:hover{transform:none} }
+  /* Monitors: lock to exactly one screen */
+  @media (min-width:961px) and (min-height:600px){
+    html,body{height:100%;overflow:hidden}
+    .page{height:100%}
+  }
+  /* Phones / narrow or short windows: stack and scroll */
+  @media (max-width:960px), (max-height:599px){
+    .main{grid-template-columns:minmax(0,1fr);gap:24px}
+    .film{width:100%;order:-1}
+    .story{max-width:none}
+    footer .credit{margin-left:0}
+  }
+  @media (prefers-reduced-motion: reduce){ .bg{animation:none} }
 </style>
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
-<div class="wrap">
+<div class="page">
 
   <header class="mast">
     <img src="logo-white.svg" alt="제칠일안식일예수재림교회" width="833" height="176">
     <div class="issue"><b>선교지 소식</b><span>2026 · 4기</span></div>
   </header>
 
-  <section class="hero">
-    <p class="dateline">REYKJAVÍK, ICELAND · 64°08′N 21°56′W</p>
-    <h1>아이슬란드에서 온 소식</h1>
-    <p class="lead">고향을 떠나 아이슬란드로 온 재림교회 자원봉사자 칼리. 하나님께서 열어 주신 문으로 들어가, 그곳 사람들과 함께 살며 섬기는 이야기입니다.</p>
-    <button class="cta" id="watch" type="button">선교영상 보기</button>
-  </section>
+  <main class="main">
+    <section class="story">
+      <p class="dateline">REYKJAVÍK, ICELAND · 64°08′N 21°56′W</p>
+      <h1>아이슬란드에서 온 소식</h1>
+      <p class="lead">고향을 떠나 아이슬란드로 온 재림교회 자원봉사자 칼리. 하나님께서 열어 주신 문으로 들어가, 그곳 사람들과 함께 살며 섬기는 이야기입니다.</p>
 
-  <section class="panel film" id="film" aria-label="선교영상 26-4기">
-    <video id="player" src="mission-26-4.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video>
-    <div class="bar">
-      <div class="meta"><span class="chip">선교영상 26-4기</span><span class="chip">2분 57초</span><span class="chip">한국어 자막</span></div>
-      <label><input type="checkbox" id="loop"> 반복 재생</label>
-      <button class="fs" id="fs" type="button">전체화면</button>
-    </div>
-  </section>
+      <ul class="notes" aria-label="현장에서 전하는 세 장면">
+        <li class="note">
+          <img src="field-arrive.jpg" alt="레이캬비크 거리를 걷는 사람들">
+          <div><span class="tag">도착</span><h3>계획보다 먼저 순종으로</h3>
+            <p>자원봉사자로 아이슬란드에 왔습니다. 구체적인 계획을 세우고 온 것은 아니었습니다.</p></div>
+        </li>
+        <li class="note">
+          <img src="field-kalli.jpg" alt="재림교회 자원봉사자 칼리">
+          <div><span class="tag">함께 살기</span><h3>가정 속으로 들어가 섬기다</h3>
+            <p>가정들과 함께 지내며 필요한 일을 찾아 돕고, 양 농장 가정에서는 양을 우리로 모는 일도 합니다.</p></div>
+        </li>
+        <li class="note">
+          <img src="field-youth.jpg" alt="아이슬란드 해안에서 함께 모인 청년들">
+          <div><span class="tag">다음 세대</span><h3>청소년과 청년이 모이다</h3>
+            <p>사역이 청소년과 청년들에게 집중되며 서로 만나는 자리가 생겼습니다.</p></div>
+        </li>
+      </ul>
 
-  <div class="section-head">
-    <h2>현장에서 전하는 세 장면</h2>
-    <p>영상 속 이야기를 간추렸습니다</p>
-  </div>
-  <div class="notes">
-    <article class="panel note">
-      <img src="field-arrive.jpg" alt="레이캬비크 거리를 걷는 사람들" loading="lazy">
-      <div class="txt">
-        <span class="tag">도착</span>
-        <h3>계획보다 먼저 순종으로</h3>
-        <p>칼리는 자원봉사자로 아이슬란드에 왔습니다. 구체적인 계획을 세우고 온 것은 아니었습니다.</p>
+      <blockquote>
+        <p>“무엇과도 바꾸고 싶지 않아요.”</p>
+        <cite>칼리 · 재림교회 자원봉사자</cite>
+      </blockquote>
+    </section>
+
+    <section class="film" id="film" aria-label="선교영상 26-4기">
+      <video id="player" src="mission-26-4.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video>
+      <div class="bar">
+        <div class="meta"><span class="chip">선교영상 26-4기</span><span class="chip">2분 57초</span><span class="chip">한국어 자막</span></div>
+        <label><input type="checkbox" id="loop"> 반복 재생</label>
+        <button class="fs" id="fs" type="button">전체화면</button>
       </div>
-    </article>
-    <article class="panel note">
-      <img src="field-kalli.jpg" alt="재림교회 자원봉사자 칼리" loading="lazy">
-      <div class="txt">
-        <span class="tag">함께 살기</span>
-        <h3>가정 속으로 들어가 섬기다</h3>
-        <p>이곳 가정들과 함께 지내며 삶 속에서 필요한 일을 찾아 돕습니다. 양 농장을 하는 교회 가정에서는 양을 한 마리씩 우리로 모는 일도 합니다.</p>
-      </div>
-    </article>
-    <article class="panel note">
-      <img src="field-youth.jpg" alt="아이슬란드 해안에서 함께 모인 청년들" loading="lazy">
-      <div class="txt">
-        <span class="tag">다음 세대</span>
-        <h3>청소년과 청년이 모이다</h3>
-        <p>시간이 흐르면서 칼리의 사역은 청소년과 청년들에게 집중되었고, 사람들이 서로 만나는 자리가 생겼습니다.</p>
-      </div>
-    </article>
-  </div>
-
-  <blockquote class="panel">
-    <p>무엇과도 바꾸고 싶지 않아요.</p>
-    <cite>칼리 · 재림교회 자원봉사자</cite>
-  </blockquote>
-
-  <div class="serve">
-    <div class="panel">
-      <h3>함께 기도해 주세요</h3>
-      <p>멀리 떨어져 사는 일은 쉽지 않습니다. 아이슬란드의 교회와 젊은이들, 그리고 그곳에서 섬기는 봉사자들을 위해 기도해 주세요.</p>
-    </div>
-    <div class="panel">
-      <h3>봉사자로 섬기고 싶다면</h3>
-      <p>자원봉사자로 섬기는 일에 대해 더 알아보시려면 <a href="https://www.vividfaith.com" target="_blank" rel="noopener">vividfaith.com</a>을 방문해 주세요.</p>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <footer>
-    <span>영상: Mission Spotlight · Adventist Mission</span>
-    <span>배경 사진: Kirkjufell, Iceland (Wikimedia Commons, CC0)</span>
+    <span><strong>함께 기도해 주세요</strong> · 아이슬란드의 교회와 젊은이들, 그곳에서 섬기는 봉사자들을 위해</span>
+    <span><strong>봉사자로 섬기고 싶다면</strong> · <a href="https://www.vividfaith.com" target="_blank" rel="noopener">vividfaith.com</a></span>
+    <span class="credit">영상: Mission Spotlight · Adventist Mission &nbsp;|&nbsp; 배경: Kirkjufell, Iceland (Wikimedia Commons, CC0)</span>
   </footer>
 </div>
 
@@ -185,10 +166,6 @@
   document.getElementById("loop").addEventListener("change", e => { player.loop = e.target.checked; });
   function goFull(){ try { const p = player.requestFullscreen && player.requestFullscreen(); if (p) p.catch(() => {}); } catch(e) {} }
   document.getElementById("fs").addEventListener("click", goFull);
-  document.getElementById("watch").addEventListener("click", () => {
-    document.getElementById("film").scrollIntoView({behavior:"smooth", block:"center"});
-    player.play().catch(() => {});
-  });
   document.addEventListener("keydown", e => {
     if (["INPUT","BUTTON","A"].includes(e.target.tagName)) return;
     if (e.key === " ") { e.preventDefault(); player.paused ? player.play().catch(()=>{}) : player.pause(); }
